@@ -18,8 +18,31 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <pthread.h>
+# include <string.h>
 
-int				arg_is_ok(char **argv);
-unsigned int	ft_atoi(const char *src, int *error);
+typedef struct s_philo
+{
+	int				id;
+	int				meal;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
+	long long		lasteat;
+}					t_philo;
+
+typedef struct s_data
+{
+	int				nb_philo;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				nb_meal;
+	t_philo			*philo;
+}					t_data;
+
+int		arg_is_ok(char **argv);
+int		ft_atoi(const char *src, int *error);
+void	init_data(t_data *data, int argc, char **argv);
+void	print_data(t_data *data, int argc);
 
 #endif

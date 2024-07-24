@@ -15,6 +15,7 @@
 int	main(int argc, char *argv[])
 {
 	int	status;
+	t_data data;
 
 	status = EXIT_FAILURE;
 	if (argc < 5 || argc > 6)
@@ -28,6 +29,9 @@ int	main(int argc, char *argv[])
 		printf("Error: Your arguments are not valid\n");
 		return (status);
 	}
+	memset(&data, 0, sizeof(data));
+	init_data(&data, argc, argv);
+	print_data(&data, argc);
 	return (0);
 }
 
@@ -50,7 +54,7 @@ int	arg_is_ok(char **argv)
 	return (0);
 }
 
-unsigned int	ft_atoi(const char *src, int *error)
+int	ft_atoi(const char *src, int *error)
 {
 	int	nb;
 	int	i;
@@ -73,4 +77,26 @@ unsigned int	ft_atoi(const char *src, int *error)
 	if ((nb < 1) || (nb > INT_MAX))
 		*error = 1;
 	return (nb);
+}
+
+void	init_data(t_data *data, int argc, char **argv)
+{
+	int	error;
+
+	error = 0;
+	data->nb_philo = ft_atoi(argv[1], &error);
+	data->time_to_die = ft_atoi(argv[2], &error);
+	data->time_to_eat = ft_atoi(argv[3], &error);
+	data->time_to_sleep = ft_atoi(argv[4], &error);
+	if (argc == 6)
+		data->nb_meal = ft_atoi(argv[5], &error);
+	else
+		data->nb_meal = -1;
+}
+
+void	print_data(t_data *data, int argc)
+{
+	printf("Le nombre de philo : %d\nLe temps pour mourir : %d\nLe temps pour manger : %d\nLe temps pour dormir : %d\n", data->nb_philo, data->time_to_die, data->time_to_eat, data->time_to_sleep);
+	if (argc == 6)
+		printf("Le nombre de repas est : %d\n", data->nb_meal);
 }
