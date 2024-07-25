@@ -6,7 +6,7 @@
 /*   By: trgaspar <trgaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 12:51:24 by trgaspar          #+#    #+#             */
-/*   Updated: 2024/07/25 14:35:00 by trgaspar         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:33:36 by trgaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,19 @@ void	init_master(t_master *master, int argc, char **argv)
 		pthread_mutex_init(&master->fork_array[i], NULL);
 		i++;
 	}
+}
+
+
+void	*routine(t_master *master)
+{
+	pthread_mutex_lock(master->philo->left_fork);
+	pthread_mutex_lock(master->philo->right_fork);
+	printf("Philo %d has taken a fork\n");
+	printf("Philo %d is eating\n");
+	usleep(master->time_to_eat);
+	pthread_mutex_unlock(master->philo->left_fork);
+	pthread_mutex_unlock(master->philo->right_fork);
+	printf("Philo %d is sleeping\n");
+	usleep(master->time_to_sleep);
+	printf("Philo %d is thinking\n");
 }

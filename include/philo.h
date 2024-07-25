@@ -6,7 +6,7 @@
 /*   By: trgaspar <trgaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 16:17:36 by trgaspar          #+#    #+#             */
-/*   Updated: 2024/07/25 14:28:27 by trgaspar         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:14:35 by trgaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 typedef struct s_philo
 {
+	int				flag_death;
 	pthread_t		id;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
