@@ -1,10 +1,12 @@
 NAME	:= philo
 
-CFLAGS	:= -Wextra -Wall -Werror -g3
+CFLAGS	:= -Wextra -Wall -Werror -pthread -g3
 
 HEADERS	:= -Iinclude
 
-SRCS	:= 	src/philo.c 
+SRCS	:= 	src/philo.c \
+			src/init.c \
+			src/print.c
 
 OBJS	:= ${SRCS:.c=.o}
 
