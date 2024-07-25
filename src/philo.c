@@ -6,7 +6,7 @@
 /*   By: trgaspar <trgaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 16:15:56 by trgaspar          #+#    #+#             */
-/*   Updated: 2024/07/24 17:30:57 by trgaspar         ###   ########.fr       */
+/*   Updated: 2024/07/25 12:36:46 by trgaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	main(int argc, char *argv[])
 {
-	int	status;
-	t_master master;
+	int			status;
+	t_master	master;
 
 	status = EXIT_FAILURE;
 	if (argc < 5 || argc > 6)
