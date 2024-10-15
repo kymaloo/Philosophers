@@ -6,7 +6,7 @@
 /*   By: trgaspar <trgaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 16:17:36 by trgaspar          #+#    #+#             */
-/*   Updated: 2024/07/25 15:14:35 by trgaspar         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:50:29 by trgaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_philo
 	pthread_t		id;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
+	struct s_philo	*next;
 }					t_philo;
 
 typedef struct s_master
@@ -41,12 +42,25 @@ typedef struct s_master
 	pthread_mutex_t	*fork_array;
 }						t_master;
 
+
 int		arg_is_ok(char **argv);
-int		ft_atoi(const char *src, int *error);
 int		ft_strlen(char *str);
 void	init_master(t_master *master, int argc, char **argv);
 void	print_master(t_master *master, int argc);
 void	ft_putstr_fd(char *s, int fd);
+void	*routine(void *arg);
+void	create_philo(t_master *master);
+unsigned long long		ft_atoi(const char *src, int *error);
+void	assign_fork(t_master *master);
+
+
+void	ft_lstadd_back(t_philo **philo, t_philo *new);
+int	ft_lstsize(t_philo *philo);
+t_philo	*ft_lstlast(t_philo *philo);
+t_philo	*ft_lstnew(int id, int *error);
+void	ft_lstclear(t_philo **philo);
+void	ft_print_all_lst(t_philo *philo);
+void	ft_delete_node(t_philo **philo);
 
 
 #endif

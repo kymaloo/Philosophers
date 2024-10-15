@@ -6,7 +6,7 @@
 /*   By: trgaspar <trgaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 12:51:24 by trgaspar          #+#    #+#             */
-/*   Updated: 2024/07/25 15:33:36 by trgaspar         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:59:07 by trgaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	arg_is_ok(char **argv)
 	return (0);
 }
 
-int	ft_atoi(const char *src, int *error)
+unsigned long long	ft_atoi(const char *src, int *error)
 {
-	int	nb;
+	unsigned long long	nb;
 	int	i;
 
 	nb = 0;
@@ -63,6 +63,7 @@ void	init_master(t_master *master, int argc, char **argv)
 
 	error = 0;
 	i = 0;
+	// ! Check Nombre Float
 	master->nb_philo = ft_atoi(argv[1], &error);
 	master->time_to_die = ft_atoi(argv[2], &error);
 	master->time_to_eat = ft_atoi(argv[3], &error);
@@ -71,25 +72,70 @@ void	init_master(t_master *master, int argc, char **argv)
 		master->nb_meal = ft_atoi(argv[5], &error);
 	else
 		master->nb_meal = -1;
-	master->fork_array = malloc(master->nb_philo * sizeof(pthread_mutex_t));
-	while (i < master->nb_philo)
-	{
-		pthread_mutex_init(&master->fork_array[i], NULL);
-		i++;
-	}
 }
 
-
-void	*routine(t_master *master)
+void	*routine(void *arg)
 {
+	t_master *master;
+
+	master = (t_master *)arg;
 	pthread_mutex_lock(master->philo->left_fork);
 	pthread_mutex_lock(master->philo->right_fork);
-	printf("Philo %d has taken a fork\n");
-	printf("Philo %d is eating\n");
+	printf("Philo %lu has taken a fork\n", master->philo->id);
+	printf("Philo %lu is eating\n", master->philo->id);
 	usleep(master->time_to_eat);
 	pthread_mutex_unlock(master->philo->left_fork);
 	pthread_mutex_unlock(master->philo->right_fork);
-	printf("Philo %d is sleeping\n");
+	printf("Philo %lu is sleeping\n", master->philo->id);
 	usleep(master->time_to_sleep);
-	printf("Philo %d is thinking\n");
+	printf("Philo %lu is thinking\n", master->philo->id);
+	return (NULL);
+}
+
+void	create_philo(t_master *master)
+{
+	int id;
+	int error;
+	
+	id = 0;
+	error = 0;
+	while (id != master->nb_philo)
+	{
+		ft_lstadd_back(&master->philo, ft_lstnew(id, &error));
+		if (error == -1)
+			return ;
+		id++;
+	}
+}
+
+void	assign_fork(t_master *master)
+{
+	t_philo *cursor;
+	t_philo	*tmp;
+	int	i;
+
+	i = 2;
+	cursor = master->philo;
+	tmp = cursor;
+	cursor->right_fork = malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(cursor->right_fork, NULL);
+	cursor->left_fork = malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(cursor->left_fork, NULL);
+	cursor = cursor->next;
+	while (cursor)
+	{
+		cursor->left_fork = tmp->right_fork;
+		if (i == master->nb_philo)
+		{
+			tmp = master->philo;
+			cursor->right_fork = tmp->left_fork;
+		}
+		else
+		{
+			cursor->right_fork = malloc(sizeof(pthread_mutex_t));
+			pthread_mutex_init(cursor->right_fork, NULL);
+		}
+		cursor = cursor->next;
+		i++;
+	}
 }

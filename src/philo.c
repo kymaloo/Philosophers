@@ -6,7 +6,7 @@
 /*   By: trgaspar <trgaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 16:15:56 by trgaspar          #+#    #+#             */
-/*   Updated: 2024/07/25 13:52:30 by trgaspar         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:35:32 by trgaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 int	main(int argc, char *argv[])
 {
 	int				status;
+	int				error;
 	t_master		master;
 
+	error = 0;
 	status = EXIT_FAILURE;
 	if (argc < 5 || argc > 6)
 	{
@@ -31,9 +33,9 @@ int	main(int argc, char *argv[])
 	}
 	memset(&master, 0, sizeof(master));
 	init_master(&master, argc, argv);
-	print_master(&master, argc);
+	create_philo(&master);
+	assign_fork(&master);
+	//ft_print_all_lst(master.philo);
+	//print_master(&master, argc);
 	return (0);
 }
-
-
-

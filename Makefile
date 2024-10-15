@@ -6,7 +6,10 @@ HEADERS	:= -Iinclude
 
 SRCS	:= 	src/philo.c \
 			src/init.c \
-			src/print.c
+			src/print.c \
+			src/free.c \
+			src/list_init.c \
+			src/list_utils.c
 
 OBJS	:= ${SRCS:.c=.o}
 
