@@ -4,12 +4,16 @@ CFLAGS	:= -Wextra -Wall -Werror -pthread -g3
 
 HEADERS	:= -Iinclude
 
-SRCS	:= 	src/philo.c \
-			src/init.c \
-			src/print.c \
-			src/free.c \
-			src/list_init.c \
-			src/list_utils.c
+SRCS =	src/main.c \
+		src/init.c \
+		src/routine.c \
+		src/eat.c \
+		src/libft.c \
+		src/utils.c \
+		src/get_data.c \
+		src/get_data2.c \
+		src/get_philo.c \
+		src/update_value.c
 
 OBJS	:= ${SRCS:.c=.o}
 
