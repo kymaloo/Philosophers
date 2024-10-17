@@ -6,7 +6,7 @@
 /*   By: trgaspar <trgaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 02:46:56 by trgaspar          #+#    #+#             */
-/*   Updated: 2024/10/16 02:49:52 by trgaspar         ###   ########.fr       */
+/*   Updated: 2024/10/17 15:36:14 by trgaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	arg_is_ok(char **argv)
 unsigned long long	ft_atoi(const char *src, int *error)
 {
 	unsigned long long	nb;
-	int	i;
+	int					i;
 
 	nb = 0;
 	i = 0;
@@ -54,4 +54,14 @@ unsigned long long	ft_atoi(const char *src, int *error)
 	if ((nb < 1) || (nb > INT_MAX))
 		*error = 1;
 	return (nb);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while ((s1[i] && s2[i]) && (s1[i] == s2[i]))
+		i++;
+	return (s1[i] - s2[i]);
 }

@@ -6,7 +6,7 @@
 /*   By: trgaspar <trgaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 02:47:28 by trgaspar          #+#    #+#             */
-/*   Updated: 2024/10/16 03:12:09 by trgaspar         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:03:35 by trgaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,23 @@ void	ft_usleep(size_t time)
 		usleep(500);
 }
 
-void	philo_writting(t_philo *philo, char *str)
+void	philo_writing(t_philo *philo, char *str)
 {
-	pthread_mutex_lock(&(philo->master->writting));
+	pthread_mutex_lock(&(philo->master->writing));
+	if (philo_died(philo) && ft_strcmp(str, "died"))
+	{
+		pthread_mutex_unlock(&(philo->master->writing));
+		return ;
+	}
 	printf("%lli %d ", (gettime() - philo->master->start_time), philo->id);
 	printf("%s\n", str);
-	pthread_mutex_unlock(&(philo->master->writting));
+	pthread_mutex_unlock(&(philo->master->writing));
 }
 
 bool	philo_died(t_philo *philo)
 {
 	bool		result;
-	t_master		*master;
+	t_master	*master;
 
 	master = philo->master;
 	result = false;

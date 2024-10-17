@@ -6,10 +6,9 @@
 /*   By: trgaspar <trgaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 02:47:02 by trgaspar          #+#    #+#             */
-/*   Updated: 2024/10/16 02:57:13 by trgaspar         ###   ########.fr       */
+/*   Updated: 2024/10/17 15:11:25 by trgaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "philo.h"
 
@@ -20,7 +19,7 @@ int	main(int argc, char *argv[])
 	status = EXIT_FAILURE;
 	if (argc < 5 || argc > 6)
 	{
-		printf("Error: You don't have the right number of arguments\n");
+		printf(NOT_ARGS);
 		return (status);
 	}
 	status = arg_is_ok(argv);
@@ -47,7 +46,6 @@ int	philo(int argc, char **argv)
 	free_data(&master);
 	return (0);
 }
-
 
 int	join_threads(t_master *master)
 {
@@ -77,7 +75,7 @@ void	free_data(t_master *master)
 		pthread_mutex_destroy(&master->fork[i]);
 	pthread_mutex_destroy(&master->get_value);
 	pthread_mutex_destroy(&master->update_value);
-	pthread_mutex_destroy(&master->writting);
+	pthread_mutex_destroy(&master->writing);
 	free(master->philo_ths);
 	free(master->philo);
 	free(master->fork);
